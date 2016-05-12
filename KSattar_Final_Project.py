@@ -268,7 +268,7 @@ def main():
     direc = '/users/kaivansattar/desktop/misc/'
     download_GDELT = False
     process_GDELT = False
-    download_LC = True
+    download_LC = False
     process_LC = False
     startt = '2013-04-01'
     stopp = '2016-05-08'
