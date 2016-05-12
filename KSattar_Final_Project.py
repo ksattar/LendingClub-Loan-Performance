@@ -114,7 +114,8 @@ def fred_data():
     
     return fred_df
 
-
+# if this doesn't work, please download data from www.lendingclub.com/info/download-data.action
+# loan data, not declined loan data, from 2007-2015
 def download_LC(direc):
     for file in ['a','b','c','d']:
         try:
@@ -268,7 +269,7 @@ def main():
     download_GDELT = False
     process_GDELT = False
     download_LC = True
-    process_LC = True
+    process_LC = False
     startt = '2013-04-01'
     stopp = '2016-05-08'
     
@@ -300,6 +301,8 @@ def main():
     fred_df = fred_data()
     
     # download LendingClub data (~700 mb for 2007-2015 data)
+    # if this doesn't work, please download data from www.lendingclub.com/info/download-data.action
+    # loan data, not declined loan data, from 2007-2015
     if download_LC == True:
         download_LC(direc)
     
