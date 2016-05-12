@@ -14,10 +14,10 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import roc_auc_score
 from fredapi import Fred
 
-#from pyspark import SparkContext
-#from pyspark.sql import SQLContext
-#from pyspark.sql.types import *
-#import pyspark.sql.functions
+from pyspark import SparkContext
+from pyspark.sql import SQLContext
+from pyspark.sql.types import *
+import pyspark.sql.functions
 
 def download_GDELT(startt, stopp, dates, direc):    
     for d in dates:
@@ -238,7 +238,6 @@ def model_selection(sim, spec, df, search):
     
     errors = {}
 
-    #spec = 'paid~term+len_title+lfrac_inc+ifrac_inc+dti+len_cr_history+inq_last_6mths+revol_bal+revol_util+total_acc+open_acc+sub_grade'
     Y,X = patsy.dmatrices(spec, df)
     X_df = pd.DataFrame(X, columns=X.design_info.column_names)
     Y_num = np.ravel(pd.DataFrame(Y, columns=Y.design_info.column_names))
@@ -268,8 +267,8 @@ def main():
     direc = '/users/kaivansattar/desktop/misc/'
     download_GDELT = False
     process_GDELT = False
-    download_LC = False
-    process_LC = False
+    download_LC = True
+    process_LC = True
     startt = '2013-04-01'
     stopp = '2016-05-08'
     
@@ -324,12 +323,12 @@ def main():
     run_logit(spec, df)
 
     # 1st argument = number of simulations to run
-    # 2nd argument = whether or not you want to rebalance the training data by over/undersampling
-    # 5th argument = breadth-first or depth-first model search
+    # 4th argument = breadth-first or depth-first model search
     # Output = (average AUC, runtime in seconds)
     errors, winner = model_selection(1, spec, df, 'breadth')
     errors, winner = model_selection(1, spec, df, 'depth')
     
     return errors, winner, df
+
 
 if __name__ == "__main__": errors, winner, df = main()
