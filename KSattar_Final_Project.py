@@ -19,6 +19,8 @@ from pyspark.sql import SQLContext
 from pyspark.sql.types import *
 import pyspark.sql.functions
 
+# if this doesn't work, please go to http://data.gdeltproject.org/gkg/index.html
+# and download .gkg.csv.zip files for the dates you want, and unzip to your main directory
 def download_GDELT(startt, stopp, dates, direc):    
     for d in dates:
         try:
@@ -266,9 +268,9 @@ def main():
     
     ### SET PARAMETERS ###
     direc = '/users/kaivansattar/desktop/misc/'
-    download_GDELT = False
+    download_GDELT = True
     process_GDELT = False
-    download_LC = False
+    download_LC = True
     process_LC = False
     startt = '2013-04-01'
     stopp = '2016-05-08'
@@ -282,6 +284,8 @@ def main():
     dates = list(dates.values.flatten())
     
     # download daily GDELT data (100 gb for 2013-04-01 to 2016-05-08)
+    # if this doesn't work, please go to http://data.gdeltproject.org/gkg/index.html
+    # and download .gkg.csv.zip files for the dates you want, and unzip to your main directory
     if download_GDELT == True:
         download_GDELT(startt, stopp, dates, direc+'GDELT_data/')
     
